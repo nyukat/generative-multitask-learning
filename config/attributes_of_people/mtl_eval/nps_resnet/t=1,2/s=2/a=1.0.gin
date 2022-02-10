@@ -1,0 +1,25 @@
+Experiment.save_dpath = "results/attributes_of_people/mtl/nps_resnet/t=1,2/s=2"
+Experiment.seed = 2
+Experiment.stages = ["test"]
+Experiment.main_task_idx = 0
+Experiment.make_data = @make_attributes_of_people_data
+make_attributes_of_people_data.task_idxs = [1, 2]
+make_attributes_of_people_data.train_ratio = 0.8
+make_attributes_of_people_data.batch_size = 64
+make_attributes_of_people_data.n_workers = 20
+Experiment.net_class = @NPSResnet
+NPSResnet.dataset = "attributes_of_people"
+NPSResnet.seed = 2
+NPSResnet.task_idxs = [1, 2]
+NPSResnet.n_classes_list = [2, 2]
+NPSResnet.net_class = @resnet50
+Experiment.n_classes_list = [2, 2]
+Experiment.optimizer = @Adam
+Adam.lr = 1e-6
+Adam.weight_decay = 1e-6
+Experiment.lr_scheduler = @CosineAnnealingLR
+CosineAnnealingLR.eta_min = 1e-8
+Experiment.n_epochs = 1
+Experiment.log_prior_fpath = "results/attributes_of_people/prior/t=1,2.pt"
+Experiment.log_prior_mult = 1.
+Experiment.is_generative = True

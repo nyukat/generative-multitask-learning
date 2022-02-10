@@ -1,0 +1,18 @@
+Experiment.save_dpath = "results/attributes_of_people/stl/t=1/s=1"
+Experiment.seed = 1
+Experiment.stages = ["train", "val", "test"]
+Experiment.main_task_idx = 0
+Experiment.make_data = @make_attributes_of_people_data
+make_attributes_of_people_data.task_idxs = [1]
+make_attributes_of_people_data.train_ratio = 0.8
+make_attributes_of_people_data.batch_size = 64
+make_attributes_of_people_data.n_workers = 20
+Experiment.net_class = @resnet50
+resnet50.pretrained = True
+Experiment.n_classes_list = [2]
+Experiment.optimizer = @Adam
+Adam.lr = 1e-6
+Adam.weight_decay = 1e-6
+Experiment.lr_scheduler = @CosineAnnealingLR
+CosineAnnealingLR.eta_min = 1e-8
+Experiment.n_epochs = 100

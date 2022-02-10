@@ -1,0 +1,27 @@
+Experiment.save_dpath = "results/taskonomy/mtl/cross_stitch_resnet/mt=1/s=3"
+Experiment.seed = 3
+Experiment.stages = ["test"]
+Experiment.main_task_idx = 1
+Experiment.make_data = @make_taskonomy_data
+make_taskonomy_data.task_idxs = [0, 1]
+make_taskonomy_data.batch_size = 64
+make_taskonomy_data.n_workers = 20
+Experiment.net_class = @CrossStitchResnet
+CrossStitchResnet.dataset = "taskonomy"
+CrossStitchResnet.seed = 3
+CrossStitchResnet.task_idxs = [0, 1]
+CrossStitchResnet.n_classes_list = [100, 64]
+CrossStitchResnet.net_class = @resnet50
+CrossStitchResnet.layer_dims = [256, 512, 1024, 2048]
+CrossStitchResnet.cross_stitch_init = 0.9
+Experiment.n_classes_list = [100, 64]
+Experiment.optimizer = @CrossStitchOptimizer
+CrossStitchOptimizer.lr = 1e-7
+CrossStitchOptimizer.cross_stitch_lr = 1e-5
+CrossStitchOptimizer.weight_decay = 1e-6
+Experiment.lr_scheduler = @CosineAnnealingLR
+CosineAnnealingLR.eta_min = 1e-8
+Experiment.n_epochs = 1
+Experiment.log_prior_fpath = "results/taskonomy/prior/log_prior.pt"
+Experiment.log_prior_mult = 0.3
+Experiment.is_generative = True

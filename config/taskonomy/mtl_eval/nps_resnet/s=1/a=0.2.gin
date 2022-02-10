@@ -1,0 +1,24 @@
+Experiment.save_dpath = "results/taskonomy/mtl/nps_resnet/s=1"
+Experiment.seed = 1
+Experiment.stages = ["test"]
+Experiment.main_task_idx = 0
+Experiment.make_data = @make_taskonomy_data
+make_taskonomy_data.task_idxs = [0, 1]
+make_taskonomy_data.batch_size = 64
+make_taskonomy_data.n_workers = 20
+Experiment.net_class = @NPSResnet
+NPSResnet.dataset = "taskonomy"
+NPSResnet.seed = 1
+NPSResnet.task_idxs = [0, 1]
+NPSResnet.n_classes_list = [100, 64]
+NPSResnet.net_class = @resnet50
+Experiment.n_classes_list = [100, 64]
+Experiment.optimizer = @Adam
+Adam.lr = 1e-6
+Adam.weight_decay = 1e-6
+Experiment.lr_scheduler = @CosineAnnealingLR
+CosineAnnealingLR.eta_min = 1e-8
+Experiment.n_epochs = 1
+Experiment.log_prior_fpath = "results/taskonomy/prior/log_prior.pt"
+Experiment.log_prior_mult = 0.2
+Experiment.is_generative = True

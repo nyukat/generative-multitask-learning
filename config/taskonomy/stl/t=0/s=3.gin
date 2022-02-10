@@ -1,0 +1,17 @@
+Experiment.save_dpath = "results/taskonomy/stl/t=0/s=3"
+Experiment.seed = 3
+Experiment.stages = ["train", "val", "test"]
+Experiment.main_task_idx = 0
+Experiment.make_data = @make_taskonomy_data
+make_taskonomy_data.task_idxs = [0]
+make_taskonomy_data.batch_size = 64
+make_taskonomy_data.n_workers = 20
+Experiment.net_class = @resnet50
+resnet50.pretrained = True
+Experiment.n_classes_list = [100]
+Experiment.optimizer = @Adam
+Adam.lr = 1e-6
+Adam.weight_decay = 1e-6
+Experiment.lr_scheduler = @CosineAnnealingLR
+CosineAnnealingLR.eta_min = 1e-8
+Experiment.n_epochs = 100
